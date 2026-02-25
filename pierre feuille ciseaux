@@ -1,0 +1,20 @@
+player1 = input("entrez vos choix (pierre, feuille, ciseaux): ").lower()
+player2 = input("entrez vos choix (pierre, feuille, ciseaux): ").lower()    
+
+def pierrefeuilleciseaux(player1, player2):
+    if player1 == player2:
+        return "Égalité"
+
+    victoires = {
+        "pierre": "ciseaux",
+        "feuille": "pierre",
+        "ciseaux": "feuille"
+    }
+
+    if victoires[player1] == player2:
+        return "Joueur 1 gagne"
+    else:
+        return "Joueur 2 gagne"
+
+result = pierrefeuilleciseaux(player1, player2)
+print(result)

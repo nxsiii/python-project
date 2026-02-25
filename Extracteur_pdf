@@ -1,0 +1,45 @@
+import os
+import pdfplumber
+from tqdm import tqdm # Pour la barre de progression
+
+def extracteur_pdf_vers_txt():
+    # 1. Demander le dossier à l'utilisateur
+    chemin_dossier = input("Entrez le chemin du dossier contenant les PDFs : ")
+    
+    if not os.path.exists(chemin_dossier):
+        print("Erreur : Ce dossier n'existe pas.")
+        return
+
+    # 2. Lister uniquement les fichiers .pdf
+    fichiers = [f for f in os.listdir(chemin_dossier) if f.endswith('.pdf')]
+    
+    if not fichiers:
+        print("Aucun fichier PDF trouvé dans ce dossier.")
+        return
+
+    # 3. Préparer le fichier de sortie
+    fichier_sortie = "resultat_extraction.txt"
+
+    with open(fichier_sortie, "w", encoding="utf-8") as txt_final:
+        print(f"\nExtraction de {len(fichiers)} fichiers en cours...\n")
+        
+        # 4. Boucle avec barre de progression (tqdm)
+        for nom_fichier in tqdm(fichiers, desc="Progression totale"):
+            chemin_complet = os.path.join(chemin_dossier, nom_fichier)
+            
+            txt_final.write(f"\n--- CONTENU DE : {nom_fichier} ---\n")
+            
+            # 5. Ouverture du PDF et extraction
+            try:
+                with pdfplumber.open(chemin_complet) as pdf:
+                    for page in pdf.pages:
+                        texte = page.extract_text()
+                        if texte: # Si la page n'est pas vide (image seule par ex)
+                            txt_final.write(texte + "\n")
+            except Exception as e:
+                print(f"\nErreur sur le fichier {nom_fichier} : {e}")
+
+    print(f"\n✅ Terminé ! Tout le texte est dans : {fichier_sortie}")
+
+if __name__ == "__main__":
+    extracteur_pdf_vers_txt()
