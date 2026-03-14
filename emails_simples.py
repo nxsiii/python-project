@@ -5,8 +5,8 @@ import time
 
 SMTP_SERVER = "sandbox.smtp.mailtrap.io"
 SMTP_PORT = 2525 # Port standard Mailtrap
-USER_MAILTRAP = "9c9ab056b9bd91"
-PASS_MAILTRAP = "9ba6cbebb60411"
+USER_MAILTRAP = "mes clé mail trap ici"
+PASS_MAILTRAP = "mes clé mail trap ici"
 
 try:
     df = pd.read_csv("input.csv")
