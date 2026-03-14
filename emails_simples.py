@@ -26,10 +26,10 @@ with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as smtp:
        
         msg = EmailMessage()
         msg['Subject'] = "Prise de contact"
-        msg['From'] = "ton-email@test.com" # Avec Mailtrap, tu peux mettre ce que tu veux
+        msg['From'] = "mon-email@test.com" 
         msg['To'] = row['email']
         
-        corps = f"Bonjour {row['nom']},\n\nJ'ai vu que tu travailles chez {row['entreprise']}. On se capte ?"
+        corps = f"Bonjour {row['nom']},\n\nJ'ai vu que tu travailles chez {row['entreprise']}. "
         msg.set_content(corps)
 
         smtp.send_message(msg)
